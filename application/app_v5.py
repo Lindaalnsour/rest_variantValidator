@@ -4,7 +4,7 @@ Simple rest interface for VariantValidator built using Flask Flask-RESTPlus and 
 
 # Import modules
 from flask import Flask, make_response
-from flask_restplus import Api, Resource, reqparse
+from flask_restx import Api, Resource, reqparse
 import requests
 from dicttoxml import dicttoxml
 
@@ -32,7 +32,7 @@ Representations
 """
 # Add additional representations using the @api.representation decorator
 # Requires the module make_response from flask and dicttoxml
-@api.representation('text/xml')
+@api.representation('application/xml')
 def xml(data, code, headers):
     data = dicttoxml(data)
     resp = make_response(data, code)
@@ -67,7 +67,7 @@ class HelloClass(Resource):
             },
                 200, None)
         # example: http://127.0.0.1:5000/name/name/bob?content-type=text/xml
-        elif args['content-type'] == 'text/xml':
+        elif args['content-type'] == 'application/xml':
             return xml({
                  "greeting" : "Hello World"
             },
@@ -118,7 +118,7 @@ class VariantValidatorClass(Resource):
     def get(self, genome_build, variant_description, select_transcripts):
 
         # Make a request to the curent VariantValidator rest-API
-        url = '/'.join(['http://rest.variantvalidator.org/variantvalidator', genome_build, variant_description, select_transcripts])
+        url = '/'.join(['http://rest.variantvalidator.org/VariantValidator/variantvalidator/', genome_build, variant_description, select_transcripts])
         validation = requests.get(url)
         content = validation.json()
 
