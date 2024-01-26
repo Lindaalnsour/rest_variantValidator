@@ -4,7 +4,7 @@ Simple rest interface for VariantVlidator built using Flask Flask-RESTPlus and S
 
 # Import modules
 from flask import Flask, make_response
-from flask_restplus import Api, Resource
+from flask_restx import Api, Resource
 import requests
 from dicttoxml import dicttoxml
 
@@ -57,7 +57,7 @@ class VariantValidatorClass(Resource):
     def get(self, genome_build, variant_description, select_transcripts):
 
         # Make a request to the curent VariantValidator rest-API
-        url = '/'.join(['http://rest.variantvalidator.org/variantvalidator', genome_build, variant_description, select_transcripts])
+        url = '/'.join(['http://rest.variantvalidator.org/VariantValidator/variantvalidator/', genome_build, variant_description, select_transcripts])
         validation = requests.get(url)
         content = validation.json()
         return content

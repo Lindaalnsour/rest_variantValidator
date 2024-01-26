@@ -1,0 +1,4 @@
+name: vvEnv
+channels:
+  - defaults
+prefix: /Users/ahmadkhasawneh/.conda/envs/vvEnv
